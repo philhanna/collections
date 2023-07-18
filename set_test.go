@@ -75,7 +75,7 @@ func TestIsEmpty(t *testing.T) {
 
 	tests := []struct {
 		name string
-		set Set[int]
+		set  Set[int]
 		want bool
 	}{
 		{"empty set", NewSet[int](), true},
@@ -83,7 +83,7 @@ func TestIsEmpty(t *testing.T) {
 		{"deleted", deletedSet, true},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T){
+		t.Run(tt.name, func(t *testing.T) {
 			assert.Equal(t, tt.want, tt.set.IsEmpty())
 		})
 	}
