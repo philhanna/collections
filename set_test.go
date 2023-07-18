@@ -14,6 +14,15 @@ func TestAdd(t *testing.T) {
 	assert.Equal(t, 2, this.Len())
 }
 
+func TestClear(t *testing.T) {
+	this := NewSet[string]("Larry", "Curly", "Moe")
+	this.Clear()
+	assert.Equal(t, 0, this.Len())
+	this.Clear()
+	that := NewSet[string]()
+	assert.True(t, this.Equal(that))
+}
+
 func TestContains(t *testing.T) {
 	list := []string{"Larry", "Curly", "Moe", "Curly"}
 	this := NewSet[string](list...)

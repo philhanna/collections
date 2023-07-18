@@ -36,6 +36,11 @@ func (this *Set[T]) Add(item T) {
 	}
 }
 
+// Clear removes all elements from the set
+func (this *Set[T]) Clear() {
+	this.list = make([]T, 0)
+}
+
 // Contains returns true if the specified item is found in this set
 func (this Set[T]) Contains(item T) bool {
 	for _, v := range this.list {
