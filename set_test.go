@@ -67,6 +67,27 @@ func TestDelete(t *testing.T) {
 	}
 }
 
+func TestIsEmpty(t *testing.T) {
+	deletedSet := NewSet[int](1, 2, 3)
+	deletedSet.Delete(1)
+	deletedSet.Delete(2)
+	deletedSet.Delete(3)
+
+	tests := []struct {
+		name string
+		set Set[int]
+		want bool
+	}{
+		{"empty set", NewSet[int](), true},
+		{"nonempty set", NewSet[int](1), false},
+		{"deleted", deletedSet, true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T){
+			assert.Equal(t, tt.want, tt.set.IsEmpty())
+		})
+	}
+}
 func TestIsSubset(t *testing.T) {
 	this := NewSet[string]("Larry", "Curly", "Moe", "Curly")
 	assert.Equal(t, 3, len(this.list))

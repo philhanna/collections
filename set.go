@@ -76,6 +76,11 @@ func (this Set[T]) Equal(that Set[T]) bool {
 	return this.IsSubset(that) && that.IsSubset(this)
 }
 
+// IsEmpty returns true if the set has no elements
+func (this Set[T]) IsEmpty() bool {
+	return this.Len() == 0
+}
+
 // IsSubset returns true if that set is a subset of this set
 func (this Set[T]) IsSubset(that Set[T]) bool {
 	for _, item := range that.list {
