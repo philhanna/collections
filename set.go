@@ -26,6 +26,13 @@ func NewSet[T comparable](items ...T) Set[T] {
 // Methods
 // ---------------------------------------------------------------------
 
+// Add appends an item to a set, if it does not already contain the item
+func (this *Set[T]) Add(item T) {
+	if !this.Contains(item) {
+		*this = append(*this, item)
+	}
+}
+
 // Contains returns true if the specified item is found in this set
 func (this Set[T]) Contains(item T) bool {
 	for _, v := range this {
