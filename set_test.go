@@ -14,6 +14,16 @@ func TestContains(t *testing.T) {
 	assert.False(t, set.Contains("Curly Joe"))
 }
 
+func TestIsSubset(t *testing.T) {
+	this := SliceToSet[string]([]string{"Larry", "Curly", "Moe", "Curly"})
+	assert.Equal(t, 3, len(this))
+	that := SliceToSet[string]([]string{"Larry", "Moe", "Curly"})
+	assert.Equal(t, 3, len(that))
+	assert.True(t, this.IsSubset(that))
+	that = SliceToSet[string]([]string{"Larry", "Jerry"})
+	assert.False(t, this.IsSubset(that))
+}
+
 func TestSliceToSet(t *testing.T) {
 	tests := []struct {
 		name string
