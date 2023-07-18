@@ -10,27 +10,16 @@ type Set[T comparable] []T
 // ---------------------------------------------------------------------
 
 // NewSet creates a new set object of the given type
-func NewSet[T comparable]() Set[T] {
-	this := new(Set[T])
-	return *this
-}
-
-// ---------------------------------------------------------------------
-// Functions
-// ---------------------------------------------------------------------
-
-// SliceToSet is a generic method that creates a set from a slice of the
-// given type.
-func SliceToSet[T comparable](list []T) Set[T] {
+func NewSet[T comparable](items ...T) Set[T] {
 	m := make(map[T]bool)
-	for _, r := range list {
+	for _, r := range items {
 		m[r] = true
 	}
-	set := NewSet[T]()
+	this := Set[T]{}
 	for k := range m {
-		set = append(set, k)
+		this = append(this, k)
 	}
-	return set
+	return this
 }
 
 // ---------------------------------------------------------------------
