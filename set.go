@@ -51,9 +51,16 @@ func (this *Set[T]) Contains(item T) bool {
 func (this *Set[T]) Delete(item T) {
 	for p, thisItem := range this.list {
 		if item == thisItem {
-			prefix := this.list[:p]
-			suffix := this.list[p:]
-			this.list = append(prefix, suffix...)
+			switch p {
+			case 0:
+				this.list = this.list[1:]
+			case len(this.list) - 1:
+				this.list = this.list[:len(this.list)-1]
+			default:
+				prefix := this.list[:p]
+				suffix := this.list[p+1:]
+				this.list = append(prefix, suffix...)
+			}
 		}
 	}
 }
