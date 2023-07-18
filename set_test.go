@@ -6,6 +6,14 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestContains(t *testing.T) {
+	list := []string{"Larry", "Curly", "Moe", "Curly"}
+	set := SliceToSet[string](list)
+	assert.True(t, set.Contains("Larry"))
+	assert.True(t, set.Contains("Curly"))
+	assert.False(t, set.Contains("Curly Joe"))
+}
+
 func TestSliceToSet(t *testing.T) {
 	tests := []struct {
 		name string
@@ -34,12 +42,4 @@ func TestSliceToSet(t *testing.T) {
 			assert.True(t, want.Equal(have))
 		})
 	}
-}
-
-func TestContains(t *testing.T) {
-	list := []string{"Larry", "Curly", "Moe", "Curly"}
-	set := SliceToSet[string](list)
-	assert.True(t, set.Contains("Larry"))
-	assert.True(t, set.Contains("Curly"))
-	assert.False(t, set.Contains("Curly Joe"))
 }
