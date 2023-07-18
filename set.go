@@ -28,7 +28,8 @@ func NewSet[T comparable](items ...T) Set[T] {
 // Methods
 // ---------------------------------------------------------------------
 
-// Add appends an item to a set, if it does not already contain the item
+// Add appends an item to a set, if the set does not already contain the
+// item
 func (this *Set[T]) Add(item T) {
 	if !this.Contains(item) {
 		this.list = append(this.list, item)
