@@ -37,7 +37,7 @@ func (this *Set[T]) Add(item T) {
 }
 
 // Contains returns true if the specified item is found in this set
-func (this *Set[T]) Contains(item T) bool {
+func (this Set[T]) Contains(item T) bool {
 	for _, v := range this.list {
 		if v == item {
 			return true
@@ -82,6 +82,6 @@ func (this Set[T]) IsSubset(that Set[T]) bool {
 }
 
 // Len returns the number of elements in the set
-func (this *Set[T]) Len() int {
+func (this Set[T]) Len() int {
 	return len(this.list)
 }
