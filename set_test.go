@@ -35,3 +35,11 @@ func TestSliceToSet(t *testing.T) {
 		})
 	}
 }
+
+func TestContains(t *testing.T) {
+	list := []string{"Larry", "Curly", "Moe", "Curly"}
+	set := SliceToSet[string](list)
+	assert.True(t, set.Contains("Larry"))
+	assert.True(t, set.Contains("Curly"))
+	assert.False(t, set.Contains("Curly Joe"))
+}
