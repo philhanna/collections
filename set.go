@@ -46,6 +46,18 @@ func (this *Set[T]) Contains(item T) bool {
 	return false
 }
 
+// Delete removes the specified item from the set. If the set does not
+// contain the item, this method does nothing.
+func (this *Set[T]) Delete(item T) {
+	for p, thisItem := range this.list {
+		if item == thisItem {
+			prefix := this.list[:p]
+			suffix := this.list[p:]
+			this.list = append(prefix, suffix...)
+		}
+	}
+}
+
 // Equal returns true if the two sets contain the same elements,
 // regardless of order.
 func (this Set[T]) Equal(that Set[T]) bool {
@@ -60,4 +72,9 @@ func (this Set[T]) IsSubset(that Set[T]) bool {
 		}
 	}
 	return true
+}
+
+// Len returns the number of elements in the set
+func (this *Set[T]) Len() int {
+	return len(this.list)
 }
