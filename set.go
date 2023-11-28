@@ -3,6 +3,8 @@ package collections
 // ---------------------------------------------------------------------
 // Type Definitions
 // ---------------------------------------------------------------------
+
+// Set is an unordered list of type T
 type Set[T comparable] struct {
 	list []T
 }
