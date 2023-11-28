@@ -89,13 +89,35 @@ func TestIsEmpty(t *testing.T) {
 	}
 }
 func TestIsSubset(t *testing.T) {
-	this := NewSet[string]("Larry", "Curly", "Moe", "Curly")
-	assert.Equal(t, 3, len(this.list))
-	that := NewSet[string]([]string{"Larry", "Moe", "Curly"}...)
-	assert.Equal(t, 3, len(that.list))
-	assert.True(t, this.IsSubset(that))
-	that = NewSet[string]("Larry", "Jerry")
-	assert.False(t, this.IsSubset(that))
+
+	set1 := NewSet[string]("Larry", "Curly", "Moe")
+	set2 := NewSet[string]("Larry", "Moe", "Curly")
+	set3 := NewSet[string]("Larry", "Moe")
+	set4 := NewSet[string]("Larry", "Jerry")
+	set5 := NewSet[string]("Tom", "Dick", "Harry")
+	set6 := NewSet[string]()
+
+	tests := []struct {
+		name    string
+		thisSet Set[string]
+		thatSet Set[string]
+		want    bool
+	}{
+		{"Set is subset of itself", set1, set1, true},
+		{"Order not important", set1, set2, true},
+		{"Is proper subset", set3, set1, true},
+		{"Some different elements", set4, set1, false},
+		{"All different elements", set5, set1, false},
+		{"Empty set is subset of any other", set6, set1, true},
+		{"Empty set is subset of itself", set6, set6, true},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			have := tt.thisSet.IsSubset(tt.thatSet)
+			assert.Equal(t, tt.want, have)
+		})
+	}
 }
 
 func TestNewSet(t *testing.T) {

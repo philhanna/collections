@@ -81,10 +81,10 @@ func (this Set[T]) IsEmpty() bool {
 	return this.Len() == 0
 }
 
-// IsSubset returns true if that set is a subset of this set
+// IsSubset returns true if this set is a subset of another specified one
 func (this Set[T]) IsSubset(that Set[T]) bool {
-	for _, item := range that.list {
-		if !this.Contains(item) {
+	for _, item := range this.list {
+		if !that.Contains(item) {
 			return false
 		}
 	}
