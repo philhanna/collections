@@ -120,6 +120,15 @@ func TestIsSubset(t *testing.T) {
 	}
 }
 
+func TestIterator(t *testing.T) {
+	this := NewSet[string]("A", "B", "C")
+	that := NewSet[string]()
+	for item := range this.Iterator() {
+		that.Add(item)
+	}
+	assert.Equal(t, this, that)
+}
+
 func TestNewSet(t *testing.T) {
 
 	this := NewSet[string]("Larry", "Curly", "Moe", "Moe")

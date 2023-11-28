@@ -91,6 +91,19 @@ func (this Set[T]) IsSubset(that Set[T]) bool {
 	return true
 }
 
+// Iterator provides an iterator over the set, using a channel
+func (this Set[T]) Iterator() <-chan T {
+	ch := make(chan T)
+	go func() {
+		defer close(ch)
+		for i := 0; i < len(this.list); i++ {
+			item := this.list[i]
+			ch <- item
+		}
+	}()
+	return ch
+}
+
 // Len returns the number of elements in the set
 func (this Set[T]) Len() int {
 	return len(this.list)
