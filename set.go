@@ -1,7 +1,9 @@
 package collections
 
-import "sort"
-import "cmp"
+import (
+	"cmp"
+	"sort"
+)
 
 // ---------------------------------------------------------------------
 // Type Definitions
@@ -147,4 +149,11 @@ func (this Set[T]) IteratorSorted(less func(i, j int) bool) <-chan T {
 // Len returns the number of elements in the set
 func (this Set[T]) Len() int {
 	return len(this.list)
+}
+
+// Map returns a new set consisting of this set with the specified
+// function applied to each element
+func (this Set[T]) Map(f func() T) Set[T] {
+	that := NewSet[T]()
+	return that
 }
