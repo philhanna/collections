@@ -67,6 +67,16 @@ func TestDelete(t *testing.T) {
 	}
 }
 
+func TestGet(t *testing.T) {
+	this := NewSet[string]("B", "C", "A")
+	item1 := this.Get(0)
+	item2 := this.Get(1)
+	item3 := this.Get(2)
+	assert.True(t, this.list[0] == item1)
+	assert.True(t, this.list[1] == item2)
+	assert.True(t, this.list[2] == item3)
+}
+
 func TestIsEmpty(t *testing.T) {
 	deletedSet := NewSet[int](1, 2, 3)
 	deletedSet.Delete(1)
@@ -127,6 +137,19 @@ func TestIterator(t *testing.T) {
 		that.Add(item)
 	}
 	assert.Equal(t, this, that)
+}
+
+func TestIteratorSorted(t *testing.T) {
+	this := NewSet[string]("B", "C", "A")
+	that := make([]string, 0)
+	for item := range this.IteratorSorted(func(i, j int) bool {
+		return this.Get(i) < this.Get(j)
+	}) {
+		that = append(that, item)
+	}
+	assert.Equal(t, this.Len(), len(that))
+	expected := []string{"A", "B", "C"}
+	assert.Equal(t, expected, that)
 }
 
 func TestNewSet(t *testing.T) {
