@@ -1,6 +1,7 @@
 package collections
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -137,6 +138,13 @@ func TestIterator(t *testing.T) {
 		that.Add(item)
 	}
 	assert.Equal(t, this, that)
+}
+
+func (this Set[T]) ExampleIterator() {
+	mySet := NewSet[string]("A", "B", "C")
+	for item := range mySet.Iterator() {
+		fmt.Printf("%s\n", item)
+	}
 }
 
 func TestIteratorSorted(t *testing.T) {
