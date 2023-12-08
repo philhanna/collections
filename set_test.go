@@ -74,7 +74,7 @@ func TestFilter(t *testing.T) {
 	f := func(item int) bool {
 		return item % 2 == 0
 	}
-	iHave := iThis.filter(f)
+	iHave := iThis.Filter(f)
 	iWant := NewSet[int](4, 2, 6)
 	assert.True(t, iHave.Equal(iWant))
 }
