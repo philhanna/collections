@@ -191,7 +191,7 @@ func TestNewSet(t *testing.T) {
 
 func TestStructSet(t *testing.T) {
 	type MyStruct struct {
-		X int 
+		X int
 		Y int
 	}
 	mySet := NewSet[MyStruct]
