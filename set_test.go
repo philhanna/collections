@@ -69,6 +69,12 @@ func TestDelete(t *testing.T) {
 	}
 }
 
+func TestEqual(t *testing.T) {
+	set1 := NewSet[string]("Larry", "Curly", "Moe")
+	set2 := NewSet[string]("Moe", "Larry", "Curly")
+	assert.True(t, set1.Equal(set2))
+}
+
 func TestFilter(t *testing.T) {
 	// Test with ints
 	iThis := NewSet[int](3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5)
