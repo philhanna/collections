@@ -73,7 +73,7 @@ func TestFilter(t *testing.T) {
 	// Test with ints
 	iThis := NewSet[int](3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5)
 	iHave := iThis.Filter(func(item int) bool {
-		return item % 2 == 0
+		return item%2 == 0
 	})
 	iWant := NewSet[int](4, 2, 6)
 	assert.True(t, iHave.Equal(iWant))
