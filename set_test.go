@@ -160,6 +160,16 @@ func TestIteratorSorted(t *testing.T) {
 	assert.Equal(t, expected, that)
 }
 
+func TestMap(t *testing.T) {
+	this := NewSet[int](3, 1, 4, 5, 9)
+	mapFunc := func (n int) int {
+		return n * 2
+	}
+	that := this.Map(mapFunc)
+	thatExpected := NewSet[int](6, 2, 8, 10, 18)
+	assert.Equal(t, thatExpected, that)
+}
+
 func TestNewSet(t *testing.T) {
 
 	this := NewSet[string]("Larry", "Curly", "Moe", "Moe")

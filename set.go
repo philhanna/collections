@@ -153,7 +153,7 @@ func (this Set[T]) Len() int {
 
 // Map returns a new set consisting of this set with the specified
 // function applied to each element
-func (this Set[T]) Map(f func() T) Set[T] {
+func (this Set[T]) Map(f func(T) T) Set[T] {
 	that := NewSet[T]()
 	return that
 }
