@@ -2,6 +2,7 @@ package collections
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -147,26 +148,36 @@ func (this Set[T]) ExampleIterator() {
 	}
 }
 
-func TestIteratorSorted(t *testing.T) {
-	this := NewSet[string]("B", "C", "A")
-	that := make([]string, 0)
-	for item := range this.IteratorSorted(func(i, j int) bool {
-		return this.Get(i) < this.Get(j)
-	}) {
-		that = append(that, item)
-	}
-	assert.Equal(t, this.Len(), len(that))
-	expected := []string{"A", "B", "C"}
-	assert.Equal(t, expected, that)
-}
-
 func TestMap(t *testing.T) {
-	this := NewSet[int](3, 1, 4, 5, 9)
-	have := this.Map(func(n int) int {
+
+	// Test with integers
+	iThis := NewSet[int](3, 1, 4, 1, 5, 9)
+	iHave := iThis.Map(func(n int) int {
 		return n * 2
 	})
-	want := NewSet[int](6, 2, 8, 10, 18)
-	assert.True(t, have.Equal(want))
+	iWant := NewSet[int](6, 2, 8, 10, 18)
+	assert.True(t, iHave.Equal(iWant))
+
+	// Test with strings
+	sThis := NewSet[string]("Larry", "Curly", "Moe")
+	sHave := sThis.Map(func(x string) string {
+		return strings.ToUpper(x)
+	})
+	sWant := NewSet[string]("LARRY", "CURLY", "MOE")
+	assert.True(t, sHave.Equal(sWant))
+
+	// Test with struct
+	type Point struct {
+		x int
+		y int
+	}
+	pThis := NewSet[Point](Point{1, 3}, Point{2, 4})
+	pHave := pThis.Map(func(p Point) Point {
+		return Point{p.y, p.x}
+	})
+	pWant := NewSet[Point](Point{3, 1}, Point{4, 2})
+	assert.True(t, pHave.Equal(pWant))
+
 }
 
 func TestNewSet(t *testing.T) {
@@ -176,4 +187,13 @@ func TestNewSet(t *testing.T) {
 
 	that := NewSet[string]("Moe", "Larry", "Curly")
 	assert.True(t, this.Equal(that))
+}
+
+func TestStructSet(t *testing.T) {
+	type MyStruct struct {
+		X int 
+		Y int
+	}
+	mySet := NewSet[MyStruct]
+	_ = mySet
 }

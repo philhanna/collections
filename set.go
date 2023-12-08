@@ -1,24 +1,14 @@
 package collections
 
-import (
-	"cmp"
-	"sort"
-)
-
 // ---------------------------------------------------------------------
 // Type Definitions
 // ---------------------------------------------------------------------
 
-// Set is an unordered list of type T. Elements of type T must be Ordered
-// according to the definition in https://pkg.go.dev/cmp#Ordered:
-//
-//	type Ordered interface {
-//		~int | ~int8 | ~int16 | ~int32 | ~int64 |
-//			~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~uintptr |
-//			~float32 | ~float64 |
-//			~string
-//	}
-type Set[T cmp.Ordered] struct {
+// Set is an unordered list of type T. Elements of type T must be
+// comparable according to the definition in
+// https://go.dev/ref/spec#Type_parameter_declarations under the
+// subheading "Type constraints"
+type Set[T comparable] struct {
 	list []T
 }
 
@@ -27,7 +17,7 @@ type Set[T cmp.Ordered] struct {
 // ---------------------------------------------------------------------
 
 // NewSet creates a new set object of the given type
-func NewSet[T cmp.Ordered](items ...T) Set[T] {
+func NewSet[T comparable](items ...T) Set[T] {
 	m := make(map[T]bool)
 	for _, r := range items {
 		m[r] = true
@@ -120,26 +110,6 @@ func (this Set[T]) Iterator() <-chan T {
 		defer close(ch)
 		for i := 0; i < len(this.list); i++ {
 			item := this.list[i]
-			ch <- item
-		}
-	}()
-	return ch
-}
-
-// IteratorSorted provides an iterator over the set, using a channel.
-// The output will be ordered according to the specified less function.
-func (this Set[T]) IteratorSorted(less func(i, j int) bool) <-chan T {
-	// Get a sorted copy of the underlying list
-	items := make([]T, 0)
-	items = append(items, this.list...)
-	sort.Slice(items, func(i, j int) bool {
-		return items[i] < items[j]
-	})
-
-	ch := make(chan T)
-	go func() {
-		defer close(ch)
-		for _, item := range items {
 			ch <- item
 		}
 	}()
