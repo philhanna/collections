@@ -69,6 +69,16 @@ func TestDelete(t *testing.T) {
 	}
 }
 
+func TestFilter(t *testing.T) {
+	iThis := NewSet[int](3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5)
+	f := func(item int) bool {
+		return item % 2 == 0
+	}
+	iHave := iThis.filter(f)
+	iWant := NewSet[int](4, 2, 6)
+	assert.True(t, iHave.Equal(iWant))
+}
+
 func TestGet(t *testing.T) {
 	this := NewSet[string]("B", "C", "A")
 	item1 := this.Get(0)
