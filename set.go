@@ -83,7 +83,7 @@ func (this Set[T]) Equal(that Set[T]) bool {
 
 // Filter returns a new Set containing just those elements for whom the
 // specified function returns true.
-func (this Set[T]) Filter(f func (T) bool) Set[T] {
+func (this Set[T]) Filter(f func(T) bool) Set[T] {
 	that := NewSet[T]()
 	for item := range this.Iterator() {
 		if f(item) {
