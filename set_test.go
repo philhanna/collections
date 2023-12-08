@@ -70,13 +70,21 @@ func TestDelete(t *testing.T) {
 }
 
 func TestFilter(t *testing.T) {
+	// Test with ints
 	iThis := NewSet[int](3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5)
-	f := func(item int) bool {
+	iHave := iThis.Filter(func(item int) bool {
 		return item % 2 == 0
-	}
-	iHave := iThis.Filter(f)
+	})
 	iWant := NewSet[int](4, 2, 6)
 	assert.True(t, iHave.Equal(iWant))
+
+	// Test with strings
+	sThis := NewSet[string]("Larry", "Curly", "Moe")
+	sHave := sThis.Filter(func(item string) bool {
+		return strings.Contains(item, "y")
+	})
+	sWant := NewSet[string]("Larry", "Curly")
+	assert.True(t, sHave.Equal(sWant))
 }
 
 func TestGet(t *testing.T) {

@@ -81,6 +81,18 @@ func (this Set[T]) Equal(that Set[T]) bool {
 	return this.IsSubset(that) && that.IsSubset(this)
 }
 
+// Filter returns a new Set containing just those elements for whom the
+// specified function returns true.
+func (this Set[T]) Filter(f func (T) bool) Set[T] {
+	that := NewSet[T]()
+	for item := range this.Iterator() {
+		if f(item) {
+			that.Add(item)
+		}
+	}
+	return that
+}
+
 // Get return the ith element of the underlying set. This is useful
 // primarily in sort functions.  Panics if i is not in the range [0 ..
 // len(list)-1]
