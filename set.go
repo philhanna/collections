@@ -155,5 +155,9 @@ func (this Set[T]) Len() int {
 // function applied to each element
 func (this Set[T]) Map(f func(T) T) Set[T] {
 	that := NewSet[T]()
+	for item := range this.Iterator() {
+		mapped := f(item)
+		that.Add(mapped)
+	}
 	return that
 }
