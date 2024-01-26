@@ -100,6 +100,17 @@ func (this Set[T]) Get(i int) T {
 	return this.list[i]
 }
 
+// Intersection returns the intersection of this set with another
+func (this Set[T]) Intersection(that Set[T]) Set[T] {
+	both := NewSet[T]()
+	for item := range this.Iterator() {
+		if that.Contains(item) {
+			both.Add(item)
+		}
+	}
+	return both
+}
+
 // IsEmpty returns true if the set has no elements
 func (this Set[T]) IsEmpty() bool {
 	return this.Len() == 0
@@ -142,4 +153,16 @@ func (this Set[T]) Map(f func(T) T) Set[T] {
 		that.Add(mapped)
 	}
 	return that
+}
+
+// Union returns the union of this set with another
+func (this Set[T]) Union(that Set[T]) Set[T] {
+	both := NewSet[T]()
+	for item := range this.Iterator() {
+		both.Add(item)
+	}
+	for item := range that.Iterator() {
+		both.Add(item)
+	}
+	return both
 }

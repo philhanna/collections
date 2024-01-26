@@ -103,6 +103,14 @@ func TestGet(t *testing.T) {
 	assert.True(t, this.list[2] == item3)
 }
 
+func TestIntersection(t *testing.T) {
+	this := NewSet[string]("Larry", "Curly", "Moe")
+	that := NewSet[string]("Curly", "Shemp")
+	want := NewSet[string]("Curly")
+	have := this.Intersection(that)
+	assert.True(t, have.Equal(want))
+}
+
 func TestIsEmpty(t *testing.T) {
 	deletedSet := NewSet[int](1, 2, 3)
 	deletedSet.Delete(1)
@@ -220,4 +228,12 @@ func TestStructSet(t *testing.T) {
 	}
 	mySet := NewSet[MyStruct]
 	_ = mySet
+}
+
+func TestUnion(t *testing.T) {
+	this := NewSet[string]("Larry", "Curly", "Moe")
+	that := NewSet[string]("Curly", "Shemp")
+	want := NewSet[string]("Larry", "Curly", "Moe", "Shemp")
+	have := this.Union(that)
+	assert.True(t, have.Equal(want))
 }
